@@ -1,4 +1,5 @@
 import './globals.css'
+import Link from "next/link";
 
 export const metadata = {
   title: 'Create Next App',
@@ -8,7 +9,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+      <header>
+        <nav>
+          <Link href="/">Home</Link>
+          <Link href="/dashboard">Dashboard</Link>
+        </nav>
+      </header>
+      {children}
+      <footer style={{textAlign:"center"}}>
+        All rights reserved 2023
+      </footer>
+      </body>
     </html>
   )
 }
