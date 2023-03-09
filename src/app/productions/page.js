@@ -15,7 +15,7 @@ async function getUserData() {
 export default function Dashboard() {
     return (
         <main>
-            Test data
+            <h1>Производство</h1>
             <br/>
             <button onClick={addUser}>Add data</button>
             <button onClick={getUserData}>Get data</button>
