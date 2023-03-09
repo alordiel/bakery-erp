@@ -10,28 +10,94 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
+model Product {
+  id              Int     @id @default(autoincrement())
+  name            String  @db.VarChar(255)
+  cost            Decimal
+  price           Decimal
+  preparationTime String  @db.VarChar(255)
+  shelfLife       String  @db.VarChar(255)
+
   updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
+  title     String
   content   String?
   published Boolean  @default(false)
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
 }
 
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+model Production {
+  id             Int     @id @default(autoincrement())
+  product_id     Int
+  dateOfCreation DateTime
+  expirationDate DateTime
+  count          Float
+  measurement    String
 }
 
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  posts   Post[]
-  profile Profile?
+model Sells {
+  id            Int      @id @default(autoincrement())
+  product_id    Int
+  quantity      String
+  measurement   String   @db.VarChar(255)
+  paymentMethod String
+  discount      Decimal
+  singlePrice   Decimal
+  finalPrice    Decimal
+  clientId      Int
+  date          DateTime @db.Date
+}
+
+model Good{
+    id              Int      @id @default(autoincrement())
+    name            String
+    supplierId      Int
+    quantity        Float     @db.VarChar(255)
+    measurement     String
+    partitionNumber String
+}
+
+model Client {
+    id           Int      @id @default(autoincrement())
+    name         String
+    email        String   @unique
+    registeredOn DateTime
+    notes        String
+}
+
+model Supplier {
+    id              Int @id @default(autoincrement())
+    name            String
+    email           String  @unique
+    phone           Int
+    site            String
+    contactName     String  @db.VarChar(255)
+    vatRegistration Boolean
+}
+
+model Supplies {
+    id              Int @id @default(autoincrement())
+    good_id         Int
+    quantity        Float
+    measurement     String  @db.VarChar(32)
+    dateOfSupply    DateTime
+    expirationDate  DateTime
+}
+
+model Recipes {
+
+}
+
+model MonthlyExpense {
+    id           Int @id @default(autoincrement())
+    name       String @db.VarChar(255)
+    recurrence String @db.VarChar(160)
+    period     String @db.VarChar(160)
+}
+
+model MonthlyCost {
+    id     Int @id @default(autoincrement())
+    costId Int
+    date   DateTime
+    cost   Decimal
 }
