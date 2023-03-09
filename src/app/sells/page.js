@@ -12,7 +12,7 @@ async function getUserData() {
         .catch(e => {console.log(e)});
 }
 
-export default function Dashboard() {
+export default function Sells() {
     return (
         <main>
             <h1>Продажби</h1>
