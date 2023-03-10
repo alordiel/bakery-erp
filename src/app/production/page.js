@@ -1,15 +1,11 @@
-"use client";
-import axios from "axios";
-
-async function addUser() {
-    axios.post('http://localhost:3000/api/test','data')
-        .then(a => { console.log(a)})
-        .catch(e => {console.log(e)});
-}
 async function getUserData() {
-    axios.get('http://localhost:3000/api/test')
-        .then(a => { console.log(a)})
-        .catch(e => {console.log(e)});
+    axios.get('http://localhost:3000/api/product')
+        .then(a => {
+            console.log(a)
+        })
+        .catch(e => {
+            console.log(e)
+        });
 }
 
 export default function Production() {
@@ -17,9 +13,9 @@ export default function Production() {
         <main>
             <h1>Производство</h1>
             <br/>
-            <button onClick={addUser}>Add data</button>
-            <button onClick={getUserData}>Get data</button>
-
+            <Link href={"/product/add-new"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Add new product
+            </Link>
         </main>
     )
 };

@@ -55,7 +55,7 @@ export default function RootLayout({children}) {
                 </div>
             </nav>
         </header>
-        <div className={"container mx-auto px-4 min-h-screen"}>
+        <div className={"container mx-auto p-4 min-h-full"}>
             {children}
         </div>
         <footer className={"bg-teal-500 p-6"} style={{textAlign: "center"}}>

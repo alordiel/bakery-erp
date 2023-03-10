@@ -17,8 +17,8 @@ export default function Sells() {
         <main>
             <h1>Продажби</h1>
             <br/>
-            <button onClick={addUser}>Add data</button>
-            <button onClick={getUserData}>Get data</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={addUser}>Add data</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={getUserData}>Get data</button>
 
         </main>
     )
