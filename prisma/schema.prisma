@@ -17,13 +17,6 @@ model Product {
   price           Decimal
   preparationTime String  @db.VarChar(255)
   shelfLife       String  @db.VarChar(255)
-
-  updatedAt DateTime @updatedAt
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
 }
 
 model Production {
@@ -52,8 +45,8 @@ model Good{
     id              Int      @id @default(autoincrement())
     name            String
     supplierId      Int
-    quantity        Float     @db.VarChar(255)
-    measurement     String
+    quantity        Float
+    measurement     String @db.VarChar(255)
     partitionNumber String
 }
 
@@ -85,11 +78,15 @@ model Supplies {
 }
 
 model Recipes {
-
+    id           Int @id @default(autoincrement())
+    product_id   Int
+    good_id      Int
+    quantity     Float
+    measurement  String @db.VarChar(160)
 }
 
 model MonthlyExpense {
-    id           Int @id @default(autoincrement())
+    id         Int @id @default(autoincrement())
     name       String @db.VarChar(255)
     recurrence String @db.VarChar(160)
     period     String @db.VarChar(160)
