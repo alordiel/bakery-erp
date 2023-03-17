@@ -14,7 +14,10 @@ model Product {
   id              Int     @id @default(autoincrement())
   name            String  @db.VarChar(255)
   cost            Decimal
+  tax             Decimal
   price           Decimal
+  finalPrice      Decimal
+  isResell        Boolean
   preparationTime String  @db.VarChar(255)
   shelfLife       String  @db.VarChar(255)
 }
@@ -73,6 +76,9 @@ model Supplies {
     good_id         Int
     quantity        Float
     measurement     String  @db.VarChar(32)
+    price           Decimal
+    tax             Decimal
+    finalPrice      Decimal
     dateOfSupply    DateTime
     expirationDate  DateTime
 }
