@@ -50,23 +50,7 @@ export default function AddNew() {
                     focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
                   "/>
                     </label>
-                    <label className="block">
-                        <span className="text-gray-700">What type of event is it?</span>
-                        <select className="
-                    block
-                    w-full border-1
-                    mt-1
-                    rounded-md
-                    border-gray-300
-                    shadow-sm
-                    focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
-                  ">
-                            <option>Corporate event</option>
-                            <option>Wedding</option>
-                            <option>Birthday</option>
-                            <option>Other</option>
-                        </select>
-                    </label>
+
                     <label className="block">
                         <span className="text-gray-700">Additional notes</span>
                         <textarea

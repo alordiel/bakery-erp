@@ -20,6 +20,7 @@ model Product {
   isResell        Boolean
   preparationTime String  @db.VarChar(255)
   shelfLife       String  @db.VarChar(255)
+  notes           String
 }
 
 model Production {
@@ -51,6 +52,7 @@ model Good{
     quantity        Float
     measurement     String @db.VarChar(255)
     partitionNumber String
+    notes           String
 }
 
 model Client {
@@ -69,6 +71,7 @@ model Supplier {
     site            String
     contactName     String  @db.VarChar(255)
     vatRegistration Boolean
+    notes           String
 }
 
 model Supplies {
@@ -81,6 +84,7 @@ model Supplies {
     finalPrice      Decimal
     dateOfSupply    DateTime
     expirationDate  DateTime
+    notes           String
 }
 
 model Recipes {
@@ -96,6 +100,7 @@ model MonthlyExpense {
     name       String @db.VarChar(255)
     recurrence String @db.VarChar(160)
     period     String @db.VarChar(160)
+    notes      String
 }
 
 model MonthlyCost {
@@ -103,4 +108,5 @@ model MonthlyCost {
     costId Int
     date   DateTime
     cost   Decimal
+    notes  String
 }
