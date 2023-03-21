@@ -1,23 +1,27 @@
 const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
-import qs from "qs";
 
 export async function POST(request) {
-    console.log(request);
-    await prisma.user.create({
-        data: {
-            name: 'Alice',
-            email: 'alice@prisma.io' + Date.now(),
-            posts: {
-                create: {title: 'Hello World'},
-            },
-            profile: {
-                create: {bio: 'I like turtles'},
-            },
-        },
-    });
 
-    return new Response('Hello, shit.js!')
+    const data = await request.json();
+    // TODO: Server-side Validate the data;
+
+    const product = await prisma.product.create({
+        data: {
+            name: data.name,
+            cost: data.cost,
+            tax: data.tax,
+            price: data.price,
+            finalPrice: data.finalPrice,
+            isResell: data.isResell,
+            preparationTime: data.preparationTime,
+            shelfLife: data.shelfLife,
+            notes: data.notes,
+        }
+    });
+    console.log(product);
+    // TODO May be we need to send just the ID instead of all the info.
+    return new Response(JSON.stringify(product), {status: 201, statusText: "Created"});
 }
 
 export async function GET(request) {
@@ -28,5 +32,5 @@ export async function GET(request) {
         },
     });
     console.log(allUsers)
-    return new Response(qs.stringify(allUsers));
+    return new Response(JSON.stringify(allUsers));
 }

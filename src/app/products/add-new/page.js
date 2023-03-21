@@ -5,6 +5,7 @@ import {useState} from "react";
 export default function AddNew() {
 
     const [productData, setProductData] = useState({
+        id: 0,
         name: '',
         price: 0,
         tax: 0,
@@ -42,6 +43,20 @@ export default function AddNew() {
             isResell: e.target.checked,
         });
     }
+
+    // Tracks the changes of the product ID (when a new product is created)
+    function handleProductID(id) {
+        // TODO change the button text to Edit
+        // TODO change title to EDIT
+        // TODO Add button for new product
+        // TODO Add button for deleting current product
+        // TODO Find a way to add the product ID in the url (or may be just redirect to that url)
+        setProductData({
+            ...productData,
+            id: id,
+        });
+    }
+
     // Monitors when the data is being sent to the database
     function handleIsLoading(status) {
         setIsLoading({
@@ -49,16 +64,45 @@ export default function AddNew() {
         });
     }
 
-    function addNewProduct(productData) {
+    // Send data to the server
+    async function addNewProduct() {
+        // TODO Validate data before sending
         handleIsLoading(true);
-        const dataCopy = {...productData};
-        console.log(dataCopy)
-        const data = JSON.stringify(...productData)
-        console.log(data);
-        axios.post('http://localhost:3000/api/product', data)
-            .then(a => {
+
+        const options = {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: productData.name,
+                price: productData.price,
+                tax: productData.tax,
+                finalPrice: productData.finalPrice,
+                cost: productData.cost,
+                preparationTime: productData.preparationTime,
+                shelfLife: productData.shelfLife,
+                isResell: productData.isResell,
+                notes: productData.notes,
+            })
+        }
+
+
+        console.log(options);
+        fetch('http://localhost:3000/api/products', options)
+            .then((response) => {
+                console.log(response)
+                if (response.status === 201) {
+                    return response.json();
+                } else {
+                    console.log(response.status + " : " + response.statusText);
+                    throw new Error("Something went wrong on API server! Check the console for more details.");
+                }
+            })
+            .then((json) => {
                 handleIsLoading(false);
-                console.log(a)
+                handleProductID(json.id);
+                console.log(json)
             })
             .catch(e => {
                 handleIsLoading(false);
@@ -70,6 +114,7 @@ export default function AddNew() {
         <main>
             <div className="w-1/3 mx-auto max-w-screen-sm">
                 <h1 className="text-5xl font-medium text-center mb-3">Add new product</h1>
+                <p>Current product ID: {productData.id}</p>
                 <div className="grid grid-cols-1 gap-6 mb-3">
 
                     <label className="block">
@@ -166,7 +211,6 @@ export default function AddNew() {
 
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         onClick={addNewProduct}
-                        disabled={isLoading}
                 >
                     Add new product
                 </button>
