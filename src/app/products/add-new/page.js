@@ -102,6 +102,7 @@ export default function AddNew() {
             .then((json) => {
                 handleIsLoading(false);
                 handleProductID(json.id);
+                window.location.href = '/product/' + json.id;
                 console.log(json)
             })
             .catch(e => {
