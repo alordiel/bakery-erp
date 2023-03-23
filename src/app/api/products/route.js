@@ -1,3 +1,5 @@
+import { NextResponse } from 'next/server';
+
 const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
 
@@ -24,13 +26,20 @@ export async function POST(request) {
     return new Response(JSON.stringify(product), {status: 201, statusText: "Created"});
 }
 
-export async function GET(request) {
-    const allUsers = await prisma.user.findMany({
-        include: {
-            posts: true,
-            profile: true,
-        },
-    });
-    console.log(allUsers)
-    return new Response(JSON.stringify(allUsers));
+export async function GET(request, {params}) {
+    console.log(params);
+    if (params !== null && params !== undefined) {
+        const products = await prisma.product.findUnique({
+            where: {
+                id: parseInt(params)
+            }
+        });
+
+        return NextResponse.json({products})
+
+    } else {
+        const products = await prisma.product.findMany();
+        return NextResponse.json({products})
+
+    }
 }
