@@ -1,15 +1,4 @@
 import Link from "next/link"
-import axios from "axios";
-
-async function getUserData() {
-    axios.get('http://localhost:3000/api/product')
-        .then(a => {
-            console.log(a)
-        })
-        .catch(e => {
-            console.log(e)
-        });
-}
 
 async function deleteProduct() {
 

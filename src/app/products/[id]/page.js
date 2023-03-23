@@ -1,6 +1,13 @@
-export default function Page({params}) {
-    console.log(params);
+export default async function Page({params}) {
+
+    const data = await fetch('http://localhost:3000/api/products/' + params.id, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    const singleProduct = await data.json();
+
     return <main>
-        <h2>Edit Product name</h2>
+        <h2>Edit Product: {singleProduct.product.name}</h2>
     </main>
 }

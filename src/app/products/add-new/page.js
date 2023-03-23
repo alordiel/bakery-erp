@@ -115,7 +115,6 @@ export default function AddNew() {
         <main>
             <div className="w-1/3 mx-auto max-w-screen-sm">
                 <h1 className="text-5xl font-medium text-center mb-3">Add new product</h1>
-                <p>Current product ID: {productData.id}</p>
                 <div className="grid grid-cols-1 gap-6 mb-3">
 
                     <label className="block">
