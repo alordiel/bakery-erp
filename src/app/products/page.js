@@ -12,7 +12,7 @@ function ProductsList({allProducts}) {
                 <td className="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">{product.cost}</td>
                 <td className="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">{product.finalPrice}</td>
                 <td className="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-                    <Link href={"/product/" + product.id}>edit</Link> &nbsp;
+                    <Link href={"/products/" + product.id}>edit</Link> &nbsp;
                     <a href="#">delete</a>
                 </td>
             </tr>
@@ -56,7 +56,7 @@ export default async function Production() {
                     allProducts={allProducts}
                 ></ProductsList>
             </div>
-            <Link href={"/products/add-new"}
+            <Link href={"/products/add"}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Add new product
             </Link>
