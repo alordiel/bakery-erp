@@ -2,26 +2,23 @@
 import {useState} from "react";
 
 export default function ProductForm({product}) {
-    const [productData, setProductData] = useState({
-        id: 0,
-        name: '',
-        price: 0,
-        tax: 0,
-        finalPrice: 0,
-        cost: 0,
-        preparationTime: 0,
-        shelfLife: 0,
-        isResell: false,
-        notes: '',
-    });
+
     const [isLoading, setIsLoading] = useState(false);
 
     const isEdit = (product !== undefined && product.id !== undefined);
-    if (isEdit) {
-        setProductData({
-            ...product
+
+        const [productData, setProductData] = useState({
+            id: isEdit ?  product.id : '',
+            name: isEdit ?  product.name : '',
+            price: isEdit ?  product.price : '',
+            tax: isEdit ? product.tax : '',
+            finalPrice: isEdit ?  product.finalPrice : '',
+            cost: isEdit ?  product.cost : '',
+            preparationTime: isEdit ?  product.preparationTime : '',
+            shelfLife: isEdit ?  product.shelfLife : '',
+            isResell: isEdit ?  product.isResell : false,
+            notes: isEdit ?  product.notes : '',
         });
-    }
 
     // Handles all the changes for the input fields and updates the productData
     function handleChange(e) {
