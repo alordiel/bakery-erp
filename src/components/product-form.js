@@ -5,7 +5,7 @@ import {ConfirmAlert, confirmAlert} from "./confirm-alert";
 export default function ProductForm({product}) {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [showModal, setShowModal] = useState(false);
+    const [modalIsVisible, setModalIsVisible] = useState(false);
 
     const isEdit = (product !== undefined && product.id !== undefined);
     const submitButtonText = isEdit ? "Update" : "Add";
@@ -38,6 +38,14 @@ export default function ProductForm({product}) {
             [e.target.name]: e.target.value,
             finalPrice: finalPrice
         });
+    }
+
+    function hideModalHandler() {
+        setModalIsVisible(false);
+    }
+
+    function showModalHandler(){
+        setModalIsVisible(true);
     }
 
     // Tracks the changes of the checkbox
@@ -122,9 +130,7 @@ export default function ProductForm({product}) {
         if (isEdit) {
             return <button
                 className="bg-red-500 hover:bg-red-700 text-white font-bold mr-5 py-2 px-4 rounded"
-                onClick={() => {
-                    setShowModal(true)
-                }}
+                onClick={showModalHandler}
             >
                 Delete product
             </button>
@@ -233,7 +239,7 @@ export default function ProductForm({product}) {
             >
                 {submitButtonText}
             </button>
-            <ConfirmAlert isActive={showModal} text="Nothing so far"/>
+            { modalIsVisible && (<ConfirmAlert onClose={hideModalHandler} text="Nothing so far"/>) }
         </div>
     )
 }
