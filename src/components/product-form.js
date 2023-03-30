@@ -1,9 +1,11 @@
 "use client"
 import {useState} from "react";
+import {ConfirmAlert, confirmAlert} from "./confirm-alert";
 
 export default function ProductForm({product}) {
 
     const [isLoading, setIsLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const isEdit = (product !== undefined && product.id !== undefined);
     const submitButtonText = isEdit ? "Update" : "Add";
@@ -63,6 +65,10 @@ export default function ProductForm({product}) {
         });
     }
 
+    function confirmDeleteProduct() {
+
+    }
+
     // Send data to the server
     async function manageProduct() {
         // TODO Validate data before sending
@@ -108,9 +114,18 @@ export default function ProductForm({product}) {
             });
     }
 
+    async function deleteProduct() {
+
+    }
+
     function DeleteButton() {
         if (isEdit) {
-           return <button className="bg-red-500 hover:bg-red-700 text-white font-bold ml-5 py-2 px-4 rounded">
+            return <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold mr-5 py-2 px-4 rounded"
+                onClick={() => {
+                    setShowModal(true)
+                }}
+            >
                 Delete product
             </button>
         }
@@ -212,12 +227,13 @@ export default function ProductForm({product}) {
 
             </div>
 
+            <DeleteButton/>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={manageProduct}
             >
                 {submitButtonText}
             </button>
-            <DeleteButton/>
+            <ConfirmAlert isActive={showModal} text="Nothing so far"/>
         </div>
     )
 }
