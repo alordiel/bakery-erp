@@ -6,19 +6,20 @@ export default function ProductForm({product}) {
     const [isLoading, setIsLoading] = useState(false);
 
     const isEdit = (product !== undefined && product.id !== undefined);
+    const submitButtonText = isEdit ? "Update" : "Add";
 
-        const [productData, setProductData] = useState({
-            id: isEdit ?  product.id : '',
-            name: isEdit ?  product.name : '',
-            price: isEdit ?  product.price : '',
-            tax: isEdit ? product.tax : '',
-            finalPrice: isEdit ?  product.finalPrice : '',
-            cost: isEdit ?  product.cost : '',
-            preparationTime: isEdit ?  product.preparationTime : '',
-            shelfLife: isEdit ?  product.shelfLife : '',
-            isResell: isEdit ?  product.isResell : false,
-            notes: isEdit ?  product.notes : '',
-        });
+    const [productData, setProductData] = useState({
+        id: isEdit ? product.id : '',
+        name: isEdit ? product.name : '',
+        price: isEdit ? product.price : '',
+        tax: isEdit ? product.tax : '',
+        finalPrice: isEdit ? product.finalPrice : '',
+        cost: isEdit ? product.cost : '',
+        preparationTime: isEdit ? product.preparationTime : '',
+        shelfLife: isEdit ? product.shelfLife : '',
+        isResell: isEdit ? product.isResell : false,
+        notes: isEdit ? product.notes : '',
+    });
 
     // Handles all the changes for the input fields and updates the productData
     function handleChange(e) {
@@ -47,8 +48,6 @@ export default function ProductForm({product}) {
 
     // Tracks the changes of the product ID (when a new product is created)
     function handleProductID(id) {
-        // TODO change the button text to Edit
-        // TODO change title to EDIT
         // TODO Add button for new product
         // TODO Add button for deleting current product
         // TODO Find a way to add the product ID in the url (or may be just redirect to that url)
@@ -88,8 +87,6 @@ export default function ProductForm({product}) {
             })
         }
 
-
-        console.log(options);
         fetch('http://localhost:3000/api/products', options)
             .then((response) => {
                 console.log(response)
@@ -192,15 +189,14 @@ export default function ProductForm({product}) {
                     This a reselling product
                 </label>
 
-
                 <label className="block">
                     Additional notes
                     <textarea
                         name="notes"
                         value={productData.notes}
                         onChange={handleChange}
-                        className="block mt-1 w-full
-                                border-1 border-gray-300 border-solid rounded shadow-md
+                        className="block mt-1 w-90 px-4 py-2
+                                border border-gray-300 border-solid rounded shadow-md
                                 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         rows="3">
                         </textarea>
@@ -212,7 +208,7 @@ export default function ProductForm({product}) {
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={addNewProduct}
             >
-                Add new product
+                {submitButtonText}
             </button>
         </div>
     )

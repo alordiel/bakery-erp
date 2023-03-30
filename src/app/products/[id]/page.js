@@ -9,7 +9,7 @@ export default async function Page({params}) {
     const singleProduct = await data.json();
 
     return <main>
-        <h2>Edit Product: {singleProduct.product.name}</h2>
+        <h2 className="text-2xl font-semibold mb-5">Edit Product: {singleProduct.product.name}</h2>
         <ProductForm product={singleProduct.product} />
     </main>
 }
