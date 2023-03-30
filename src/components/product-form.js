@@ -50,7 +50,6 @@ export default function ProductForm({product}) {
     function handleProductID(id) {
         // TODO Add button for new product
         // TODO Add button for deleting current product
-        // TODO Find a way to add the product ID in the url (or may be just redirect to that url)
         setProductData({
             ...productData,
             id: id,
@@ -65,7 +64,7 @@ export default function ProductForm({product}) {
     }
 
     // Send data to the server
-    async function addNewProduct() {
+    async function manageProduct() {
         // TODO Validate data before sending
         handleIsLoading(true);
 
@@ -89,8 +88,7 @@ export default function ProductForm({product}) {
 
         fetch('http://localhost:3000/api/products', options)
             .then((response) => {
-                console.log(response)
-                if (response.status === 201) {
+                if (response.status === 201 || response.status === 200) {
                     return response.json();
                 } else {
                     console.log(response.status + " : " + response.statusText);
@@ -100,13 +98,22 @@ export default function ProductForm({product}) {
             .then((json) => {
                 handleIsLoading(false);
                 handleProductID(json.id);
-                window.location.href = '/product/' + json.id;
-                console.log(json)
+                if (!isEdit) {
+                    window.location.href = '/products/' + json.id;
+                }
             })
             .catch(e => {
                 handleIsLoading(false);
                 console.log(e)
             });
+    }
+
+    function DeleteButton() {
+        if (isEdit) {
+           return <button className="bg-red-500 hover:bg-red-700 text-white font-bold ml-5 py-2 px-4 rounded">
+                Delete product
+            </button>
+        }
     }
 
     return (
@@ -206,10 +213,11 @@ export default function ProductForm({product}) {
             </div>
 
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={addNewProduct}
+                    onClick={manageProduct}
             >
                 {submitButtonText}
             </button>
+            <DeleteButton/>
         </div>
     )
 }
